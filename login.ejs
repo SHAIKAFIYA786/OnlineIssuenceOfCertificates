@@ -1,0 +1,155 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="/login" method="POST">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+    <a href="/register">Don't have an account? Register here</a>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        /* Navigation Bar with Text Animation */
+        nav {
+            width: 100%;
+            background-color: #ff9f00;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .animate-text {
+            font-size: 24px;
+            font-weight: bold;
+            background-image: linear-gradient(90deg, #ff9f00, #fff, #006400);
+            background-clip: text;
+            color: transparent;
+            animation: textAnimation 5s infinite;
+        }
+
+        @keyframes textAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Layout for the login and image */
+        .container {
+            display: flex;
+            flex: 1;
+        }
+
+        /* Login Form - Left side */
+        .login-form {
+            flex: 1;
+            max-width: 50%;
+            margin-left: 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-form h2 {
+            text-align: center;
+            color:#ff9f00;
+        }
+
+        .login-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .login-form input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .login-form button {
+            padding: 10px;
+            font-size: 16px;
+            background-color:#ff9f00;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .login-form a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        /* Right side image */
+        .background-image {
+            flex: 1;
+            background-image: url('/images/logo.png'); /* Replace with your image path */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="animate-text">Tem Delhi Making Things Happen</div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Login Form Section -->
+        <div class="login-form">
+            <h2>Login</h2>
+            <form action="/api/users/login" method="POST">
+                <input type="email" name="email" placeholder="Email" required />
+                <input type="password" name="password" placeholder="Password" required />
+                <button type="submit">Login</button>
+            </form>
+            <a href="/register">Register</a>
+        </div>
+
+        <!-- Right Side Background Image -->
+        <div class="background-image"></div>
+    </div>
+</body>
+</html>
+

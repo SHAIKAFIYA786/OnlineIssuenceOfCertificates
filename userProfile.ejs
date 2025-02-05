@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>User Profile</h1>
+
+    <!-- User Profile Upload Form -->
+    <form action="/user/profile/upload" method="POST" enctype="multipart/form-data">
+        <label>Name:</label>
+        <input type="text" name="name" required><br>
+
+        <label>Email:</label>
+        <input type="email" name="email" required><br>
+
+        <label>Address:</label>
+        <textarea name="address" required></textarea><br>
+
+        <label>Upload Photograph:</label>
+        <input type="file" name="photograph" accept="image/*"><br>
+
+        <label>Upload Caste Document:</label>
+        <input type="file" name="casteDocument" accept=".pdf,.jpg,.png"><br>
+
+        <label>Upload Income Document:</label>
+        <input type="file" name="incomeDocument" accept=".pdf,.jpg,.png"><br>
+
+        <label>Upload EWS Document:</label>
+        <input type="file" name="ewsDocument" accept=".pdf,.jpg,.png"><br>
+
+        <label>Upload Aadhaar Document:</label>
+        <input type="file" name="aadhaarDocument" accept=".pdf,.jpg,.png"><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Display User Profile -->
+    <h2>Your Profile Details:</h2>
+    <div>
+        <img src="<%= user.photograph %>" alt="User Photo" style="max-width: 150px;">
+        <p><strong>Name:</strong> <%= user.name %></p>
+        <p><strong>Email:</strong> <%= user.email %></p>
+        <p><strong>Address:</strong> <%= user.address %></p>
+        <p><strong>Caste Document:</strong> <a href="<%= user.casteDocument %>">View Document</a></p>
+        <p><strong>Income Document:</strong> <a href="<%= user.incomeDocument %>">View Document</a></p>
+        <p><strong>EWS Document:</strong> <a href="<%= user.ewsDocument %>">View Document</a></p>
+        <p><strong>Aadhaar Document:</strong> <a href="<%= user.aadhaarDocument %>">View Document</a></p>
+    </div>
+</body>
+</html>

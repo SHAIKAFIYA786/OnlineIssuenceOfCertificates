@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Certificate Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .count-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .count {
+            background-color: #e3f2fd;
+            color: #1976d2;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+            transform: translateX(-100%);
+            animation: slideIn 0.8s ease-out forwards;
+        }
+
+        /* Different colors for each count */
+        .count:nth-child(1) {
+            background-color: #fce4ec;
+            color: #d81b60;
+        }
+
+        .count:nth-child(2) {
+            background-color: #e8f5e9;
+            color: #43a047;
+        }
+
+        .count:nth-child(3) {
+            background-color: #fff3e0;
+            color: #fb8c00;
+        }
+
+        .count:nth-child(4) {
+            background-color: #ede7f6;
+            color: #5e35b1;
+        }
+
+        /* Fade-in animation for container */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .count a{
+            text-decoration: none;
+        }
+
+        /* Slide-in animation for count divs */
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- <h1>Certificate Data for <%= state %></h1> -->
+        <div class="count-container"> 
+            <div class="count">Total Certificates: <%= total %></div>
+            <div class="count">Caste Certificates: <%= caste %></div>
+            <div class="count">Income Certificates: <%= income %></div>
+            <div class="count">EWS Certificates: <%= ews %></div>
+            <div class="count"><a href="http://localhost:5000/allcompare#income">Compare Progress</a></div>
+        </div>
+    </div>
+</body>
+</html>

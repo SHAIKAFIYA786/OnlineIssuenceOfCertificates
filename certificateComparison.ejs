@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Comparison - All States, Districts, and Mandals</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f4f7f9; /* Soft light gray-blue background */
+            font-family: 'Arial', sans-serif;
+        }
+
+        h2, h3 {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #003366; /* Deep blue */
+        }
+
+        .table-container {
+            margin: 30px auto;
+            background: #ffffff; /* White background for contrast */
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            padding: 20px;
+        }
+
+        .table-title {
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.5em;
+            color: #003366; /* Deep blue */
+        }
+
+        table {
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        th {
+            background-color: #00509e; /* Rich blue */
+            color: #ffffff; /* White text for contrast */
+        }
+
+        td {
+            color: #333333; /* Dark gray text */
+        }
+
+        tr:nth-child(even) {
+            background-color: #e9f1f7; /* Light blue-gray for alternate rows */
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffffff; /* Pure white for alternate rows */
+        }
+
+        td, th {
+            padding: 12px;
+            text-align: center;
+        }
+
+        .total-row {
+            font-weight: bold;
+            background-color: #cce5ff; /* Soft light blue for emphasis */
+            color: #003366; /* Deep blue text */
+        }
+
+        /* Buttons for interactive elements (if needed later) */
+        .btn-custom {
+            background-color: #00509e; /* Rich blue */
+            color: #ffffff; /* White text */
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .btn-custom:hover {
+            background-color: #003366; /* Deep blue on hover */
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn-custom {
+            background-color: #00509e; /* Rich blue */
+            color: #ffffff; /* White text */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-custom:hover {
+            background-color: #003366; /* Deep blue on hover */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+        }
+        .btn-graph-view {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-graph-view:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Certificate Comparison - All States, Districts, and Mandals</h2>
+    <div class="btn-container">
+        <a href="http://localhost:5000/certificate-comparison1" class="btn-custom">Go to Graphical View</a>
+    </div>
+    <!-- State Comparison Section -->
+    <div class="table-container">
+        <div class="table-title">State Comparison</div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Certificate Type</th>
+                    <th>State 1</th>
+                    <th>State 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Caste Certificate</td>
+                    <td><%= results.states.state1 ? results.states.state1.caste : 0 %></td>
+                    <td><%= results.states.state2 ? results.states.state2.caste : 0 %></td>
+                </tr>
+                <tr>
+                    <td>Income Certificate</td>
+                    <td><%= results.states.state1 ? results.states.state1.income : 0 %></td>
+                    <td><%= results.states.state2 ? results.states.state2.income : 0 %></td>
+                </tr>
+                <tr>
+                    <td>EWS Certificate</td>
+                    <td><%= results.states.state1 ? results.states.state1.ews : 0 %></td>
+                    <td><%= results.states.state2 ? results.states.state2.ews : 0 %></td>
+                </tr>
+                <tr class="total-row">
+                    <td>Total Requests</td>
+                    <td><%= results.states.state1 ? results.states.state1.total : 0 %></td>
+                    <td><%= results.states.state2 ? results.states.state2.total : 0 %></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- District Comparison Section -->
+    <div class="table-container">
+        <div class="table-title">District Comparison</div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Certificate Type</th>
+                    <th>District 1</th>
+                    <th>District 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Caste Certificate</td>
+                    <td><%= results.districts.district1 ? results.districts.district1.caste : 0 %></td>
+                    <td><%= results.districts.district2 ? results.districts.district2.caste : 0 %></td>
+                </tr>
+                <tr>
+                    <td>Income Certificate</td>
+                    <td><%= results.districts.district1 ? results.districts.district1.income : 0 %></td>
+                    <td><%= results.districts.district2 ? results.districts.district2.income : 0 %></td>
+                </tr>
+                <tr>
+                    <td>EWS Certificate</td>
+                    <td><%= results.districts.district1 ? results.districts.district1.ews : 0 %></td>
+                    <td><%= results.districts.district2 ? results.districts.district2.ews : 0 %></td>
+                </tr>
+                <tr class="total-row">
+                    <td>Total Requests</td>
+                    <td><%= results.districts.district1 ? results.districts.district1.total : 0 %></td>
+                    <td><%= results.districts.district2 ? results.districts.district2.total : 0 %></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Mandal Comparison Section -->
+    <div class="table-container">
+        <div class="table-title">Mandal Comparison</div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Certificate Type</th>
+                    <th>Mandal 1</th>
+                    <th>Mandal 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Caste Certificate</td>
+                    <td><%= results.mandals.mandal1 ? results.mandals.mandal1.caste : 0 %></td>
+                    <td><%= results.mandals.mandal2 ? results.mandals.mandal2.caste : 0 %></td>
+                </tr>
+                <tr>
+                    <td>Income Certificate</td>
+                    <td><%= results.mandals.mandal1 ? results.mandals.mandal1.income : 0 %></td>
+                    <td><%= results.mandals.mandal2 ? results.mandals.mandal2.income : 0 %></td>
+                </tr>
+                <tr>
+                    <td>EWS Certificate</td>
+                    <td><%= results.mandals.mandal1 ? results.mandals.mandal1.ews : 0 %></td>
+                    <td><%= results.mandals.mandal2 ? results.mandals.mandal2.ews : 0 %></td>
+                </tr>
+                <tr class="total-row">
+                    <td>Total Requests</td>
+                    <td><%= results.mandals.mandal1 ? results.mandals.mandal1.total : 0 %></td>
+                    <td><%= results.mandals.mandal2 ? results.mandals.mandal2.total : 0 %></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Status</title>
+</head>
+<body>
+    <h1>Certificate Status</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <!-- tracck status -->
+                <th>Name</th>
+                <th>Caste Request Date</th>
+                <th>Caste Accepted Date</th>
+                <th>Caste Expected Date</th>
+                <th>Caste Status</th>
+                <th>Income Request Date</th>
+                <th>Income Accepted Date</th>
+                <th>Income Expected Date</th>
+                <th>Income Status</th>
+                <th>EWS Request Date</th>
+                <th>EWS Accepted Date</th>
+                <th>EWS Expected Date</th>
+                <th>EWS Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% users.forEach(user => { %>
+                <tr>
+                    <td><%= user.name %></td>
+                    
+                    <!-- Caste Certificate -->
+                    <td><%= user.casteApplication?.requestDate || 'N/A' %></td>
+                    <td><%= user.casteApplication?.acceptedDate || 'N/A' %></td>
+                    <td>
+                        <% if (user.casteApplication?.requestDate) { %>
+                            <%= (new Date(new Date(user.casteApplication.requestDate).setDate(new Date(user.casteApplication.requestDate).getDate() + 2))).toLocaleDateString() %>
+                        <% } else { %> N/A <% } %>
+                        
+                    </td>
+                    <td><%= user.casteApplication?.status || 'Pending' %></td>
+                    
+                    <!-- Income Certificate -->
+                    <td><%= user.incomeApplication?.requestDate || 'N/A' %></td>
+                    <td><%= user.incomeApplication?.acceptedDate || 'N/A' %></td>
+                    <td>
+                        <% if (user.casteApplication?.requestDate) { %>
+                            <%= (new Date(new Date(user.casteApplication.requestDate).setDate(new Date(user.casteApplication.requestDate).getDate() + 2))).toLocaleDateString() %>
+                        <% } else { %> N/A <% } %>
+                        
+                    </td>
+                    <td><%= user.incomeApplication?.status || 'Pending' %></td>
+                    
+                    <!-- EWS Certificate -->
+                    <td><%= user.ewsApplication?.requestDate || 'N/A' %></td>
+                    <td><%= user.ewsApplication?.acceptedDate || 'N/A' %></td>
+                    <td>
+                        <% if (user.casteApplication?.requestDate) { %>
+                            <%= (new Date(new Date(user.casteApplication.requestDate).setDate(new Date(user.casteApplication.requestDate).getDate() + 2))).toLocaleDateString() %>
+                        <% } else { %> N/A <% } %>
+                        
+                    </td>
+                    <td><%= user.ewsApplication?.status || 'Pending' %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>

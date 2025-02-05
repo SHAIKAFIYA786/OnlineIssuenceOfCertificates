@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workload Distribution</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7fc;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #444;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    /* Main content container */
+    .content-container {
+      width: 100%;
+      max-width: 900px;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    /* Heading Styles */
+    h1 {
+      color: #0056b3;
+      font-size: 36px;
+      margin-bottom: 40px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: bold;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    /* Container for the workload distribution */
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 700px;
+      text-align: center;
+      transition: transform 0.3s ease-in-out;
+      margin-bottom: 40px;
+      border: 2px solid black;
+    }
+
+    /* Animating the list */
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      background-color: #e0f7fa;
+      margin: 12px 0;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 18px;
+      color: #00796b;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+      transform: translateY(20px);
+      opacity: 0;
+      animation: slideIn 0.5s ease-out forwards;
+    }
+
+    li:nth-child(odd) {
+      background-color: #fce4ec;
+    }
+
+    li:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      background-color: #ff80ab;
+      color: white;
+    }
+
+    /* Link Styles */
+    a {
+      display: inline-block;
+      margin-top: 30px;
+      text-decoration: none;
+      color: #007bff;
+      font-size: 18px;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+
+    /* Keyframe Animations */
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    label {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: #f9f9f9;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="date"]:focus,
+    select:focus {
+      border-color: #0056b3;
+      box-shadow: 0 0 5px rgba(0, 86, 179, 0.2);
+      outline: none;
+    }
+
+    /* Submit Button */
+    button {
+      background-color: #0056b3;
+      color: white;
+      padding: 15px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #003f7d;
+      transform: translateY(-3px);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 600px) {
+      .form-container {
+        width: 90%;
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="date"],
+      select {
+        font-size: 14px;
+        padding: 10px;
+      }
+
+      button {
+        padding: 12px 22px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <form action="/assignWork" method="POST">
+  <h1>Distribute Workload Among Staff</h1>
+    <label for="totalApplications">Total Applications:</label>
+    <input type="number" id="totalApplications" name="totalApplications" required><br><br>
+
+    <label for="totalStaff">Total Staff:</label>
+    <input type="number" id="totalStaff" name="totalStaff" value="10" readonly><br><br>
+
+    <label for="staffOnLeave">Staff on Leave (Comma-separated, e.g., 8,9):</label>
+    <input type="text" id="staffOnLeave" name="staffOnLeave" required><br><br>
+
+    <button type="submit">Distribute Work</button>
+  </form>
+</body>
+</html>

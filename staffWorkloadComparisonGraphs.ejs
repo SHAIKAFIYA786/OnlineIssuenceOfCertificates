@@ -1,0 +1,190 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Workload Comparison Graphs</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fc;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 24px;
+    }
+
+    /* Flex container for side-by-side charts */
+    .charts-wrapper {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      width: 90%;
+      max-width: 1400px;
+    }
+
+    /* Chart container */
+    .chart-container {
+      width: 48%;
+      height: 45vh;
+      position: relative;
+      background-color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    /* Ensuring charts fit within their containers */
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* Chart title */
+    .chart-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #444;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .btn-graph-view {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-graph-view:hover {
+            background-color: #218838;
+        }
+  </style>
+</head>
+
+<body>
+  <h1>Staff Workload Comparison</h1>
+  <a href="http://localhost:5000/staff-workload-graphs" class="btn-graph-view">See Graphical View</a>
+  <!-- Wrapper for side-by-side charts -->
+  <div class="charts-wrapper">
+    <!-- State Workload Chart -->
+    <div class="chart-container">
+      <div class="chart-title">Workload vs Staff Count</div>
+      <canvas id="stateWorkloadChart"></canvas>
+    </div>
+
+    <!-- Efficiency Chart -->
+    <div class="chart-container">
+      <div class="chart-title">Efficiency Overview</div>
+      <canvas id="districtWorkloadChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    // Data passed from backend
+    const workloadData = <%- JSON.stringify(workloadData) %>;
+
+    // Prepare data for charts
+    const labels = workloadData.map(data => data.area);
+    const workloads = workloadData.map(data => data.workload);
+    const staffs = workloadData.map(data => data.staff);
+    const efficiencies = workloadData.map(data => data.efficiency);
+
+    // State Workload Chart
+    new Chart(document.getElementById('stateWorkloadChart'), {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+            label: 'Workload',
+            data: workloads,
+            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          },
+          {
+            label: 'Staff Count',
+            data: staffs,
+            backgroundColor: 'rgba(75, 192, 192, 0.5)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top'
+          },
+          title: {
+            display: true,
+            text: 'Workload vs Staff Count'
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // Efficiency Chart
+    new Chart(document.getElementById('districtWorkloadChart'), {
+      type: 'doughnut',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Efficiency',
+          data: efficiencies.map(eff => (eff === 'Efficient' ? 1 : eff === 'Overloaded' ? 2 : 0)),
+          backgroundColor: [
+            'rgba(75, 192, 192, 0.5)',
+            'rgba(255, 159, 64, 0.5)',
+            'rgba(255, 99, 132, 0.5)'
+          ],
+          borderColor: [
+            'rgba(75, 192, 192, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 99, 132, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top'
+          },
+          title: {
+            display: true,
+            text: 'Efficiency Overview'
+          }
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

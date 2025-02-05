@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandal Comparison - Certificate Applications</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        h2 {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Mandal Comparison - Certificate Applications</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Certificate Type</th>
+                <th>Mandal 1</th>
+                <th>Mandal 2</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Caste Certificate</td>
+                <td><%= mandal1Data.caste %></td>
+                <td><%= mandal2Data.caste %></td>
+            </tr>
+            <tr>
+                <td>Income Certificate</td>
+                <td><%= mandal1Data.income %></td>
+                <td><%= mandal2Data.income %></td>
+            </tr>
+            <tr>
+                <td>EWS Certificate</td>
+                <td><%= mandal1Data.ews %></td>
+                <td><%= mandal2Data.ews %></td>
+            </tr>
+            <tr>
+                <td><strong>Total Requests</strong></td>
+                <td><strong><%= mandal1Data.total %></strong></td>
+                <td><strong><%= mandal2Data.total %></strong></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

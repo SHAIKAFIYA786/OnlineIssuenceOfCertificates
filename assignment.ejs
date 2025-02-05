@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assigned Work</title>
+</head>
+<style>
+  /* Global Styles */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+    padding: 20px;
+  }
+
+  /* Container Styles */
+  h1 {
+    color: #0056b3;
+    font-size: 36px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 80%;
+    max-width: 600px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* List Item Styles */
+  li {
+    background-color: #e9ecef;
+    margin: 15px 0;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 20px;
+    color: #333;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  li:hover {
+    background-color: #d1e7fd;
+    transform: translateY(-5px);
+  }
+
+  li:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+
+  /* Link Styles */
+  a {
+    display: inline-block;
+    margin-top: 30px;
+    text-decoration: none;
+    color: #007bff;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    transition: color 0.3s ease;
+  }
+
+  a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+
+</style>
+<body>
+  <ul>
+    <h1>Workload Distribution</h1>
+    <% assignments.forEach(function(assignment) { %>
+      <li><%= assignment %></li>
+    <% }) %>
+  </ul>
+  <!-- <a href="/index">Go Back</a> -->
+</body>
+</html>

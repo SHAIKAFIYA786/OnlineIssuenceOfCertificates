@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Efficiency Comparison</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        .btn-graph-view {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-graph-view:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <!-- staff working efficiency comparison -->
+    <h1>Staff Efficiency Comparison for Certificate Processing</h1>
+    <a href="http://localhost:5000/admin/efficiency-graph" class="btn-graph-view">See Graphical View</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Area</th>
+                <th>Caste Processing Time</th>
+                <th>Income Processing Time</th>
+                <th>EWS Processing Time</th>
+                <th>Total Processing Time</th>
+                <th>Efficiency</th>
+                <th>Suggestion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% efficiencyData.forEach(function(data) { %>
+                <tr>
+                    <td><%= data.area %></td>
+                    <td><%= data.casteProcessingTime %> days</td>
+                    <td><%= data.incomeProcessingTime %> days</td>
+                    <td><%= data.ewsProcessingTime %> days</td>
+                    <td><%= data.totalProcessingTime.toFixed(2) %> days</td>
+                    <td><%= data.efficiency %></td>
+                    <td><%= data.suggestion %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>

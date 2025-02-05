@@ -1,0 +1,211 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Workload Comparison</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="text-center">Staff Workload Comparison</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Area</th>
+                <th>Workload</th>
+                <th>Staff</th>
+                <th>Workload per Staff</th>
+                <th>Efficiency</th>
+                <th>Suggestion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>State 1</td>
+                <td><%= state1Cases > 0 ? state1Cases + " cases" : "No cases available" %></td>
+                <td><%= state1Staff %></td>
+                <td><%= state1WorkloadPerStaff %></td>
+                <td><%= state1Efficiency %></td>
+                <td><%= state1Suggestion %></td>
+            </tr>
+            <tr>
+                <td>State 2</td>
+                <td><%= state2Cases > 0 ? state2Cases + " cases" : "No cases available" %></td>
+                <td><%= state2Staff %></td>
+                <td><%= state2WorkloadPerStaff %></td>
+                <td><%= state2Efficiency %></td>
+                <td><%= state2Suggestion %></td>
+            </tr>
+            <tr>
+                <td>District 1</td>
+                <td><%= district1Cases > 0 ? district1Cases + " cases" : "No cases available" %></td>
+                <td><%= district1Staff %></td>
+                <td><%= district1Cases > 0 ? (district1Cases / district1Staff).toFixed(2) : "N/A" %></td>
+                <td><%= district1Cases > 0 && district1Cases / district1Staff < 1 ? 'Underutilized' : (district1Cases > 0 ? 'Efficient' : 'No cases') %></td>
+                <td><%= district1Cases > 0 && district1Cases / district1Staff < 1 ? 'Reduce staff or reallocate' : 'No change needed' %></td>
+            </tr>
+            <tr>
+                <td>District 2</td>
+                <td><%= district2Cases > 0 ? district2Cases + " cases" : "No cases available" %></td>
+                <td><%= district2Staff %></td>
+                <td><%= district2Cases > 0 ? (district2Cases / district2Staff).toFixed(2) : "N/A" %></td>
+                <td><%= district2Cases > 0 && district2Cases / district2Staff < 1 ? 'Underutilized' : (district2Cases > 0 ? 'Efficient' : 'No cases') %></td>
+                <td><%= district2Cases > 0 && district2Cases / district2Staff < 1 ? 'Reduce staff or reallocate' : 'No change needed' %></td>
+            </tr>
+             
+        </tbody>
+    </table>
+</div>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Workload Comparison</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .btn-graph-view {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-graph-view:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="text-center">Staff Workload Comparison</h2>
+    <a href="http://localhost:5000/staff-workload-comparison-graphs" class="btn-graph-view">See Graphical View</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Area</th>
+                <th>Workload</th>
+                <th>Staff</th>
+                <th>Workload per Staff</th>
+                <th>Efficiency</th>
+                <th>Suggestion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Display State 1 -->
+            <tr>
+                <td>State 1</td>
+                <td><%= state1Cases > 0 ? state1Cases + " cases" : "No cases available" %></td>
+                <td><%= state1Staff %></td>
+                <td><%= state1WorkloadPerStaff %></td>
+                <td><%= state1Efficiency %></td>
+                <td><%= state1Suggestion %></td>
+            </tr>
+            <!-- Display State 2 -->
+            <tr>
+                <td>State 2</td>
+                <td><%= state2Cases > 0 ? state2Cases + " cases" : "No cases available" %></td>
+                <td><%= state2Staff %></td>
+                <td><%= state2WorkloadPerStaff %></td>
+                <td><%= state2Efficiency %></td>
+                <td><%= state2Suggestion %></td>
+            </tr>
+            <!-- Display District 1 -->
+            <tr>
+                <td>District 1</td>
+                <td><%= district1Cases > 0 ? district1Cases + " cases" : "No cases available" %></td>
+                <td><%= district1Staff %></td>
+                <td><%= district1Cases > 0 ? (district1Cases / district1Staff).toFixed(2) : "N/A" %></td>
+                <td><%= district1Cases > 0 && district1Cases / district1Staff < 1 ? 'Underutilized' : (district1Cases > 0 ? 'Efficient' : 'No cases') %></td>
+                <td><%= district1Cases > 0 && district1Cases / district1Staff < 1 ? 'Reduce staff or reallocate' : 'No change needed' %></td>
+            </tr>
+            <!-- Display District 2 -->
+            <tr>
+                <td>District 2</td>
+                <td><%= district2Cases > 0 ? district2Cases + " cases" : "No cases available" %></td>
+                <td><%= district2Staff %></td>
+                <td><%= district2Cases > 0 ? (district2Cases / district2Staff).toFixed(2) : "N/A" %></td>
+                <td><%= district2Cases > 0 && district2Cases / district2Staff < 1 ? 'Underutilized' : (district2Cases > 0 ? 'Efficient' : 'No cases') %></td>
+                <td><%= district2Cases > 0 && district2Cases / district2Staff < 1 ? 'Reduce staff or reallocate' : 'No change needed' %></td>
+            </tr>
+            <!-- Display Mandal 1 -->
+            <tr>
+                <td>Mandal 1</td>
+                <td><%= mandal1Cases > 0 ? mandal1Cases + " cases" : "No cases available" %></td>
+                <td><%= mandal1Staff %></td>
+                <td><%= mandal1Cases > 0 ? (mandal1Cases / mandal1Staff).toFixed(2) : "N/A" %></td>
+                <td><%= mandal1Cases > 0 && mandal1Cases / mandal1Staff < 1 ? 'Underutilized' : (mandal1Cases > 0 ? 'Efficient' : 'No cases') %></td>
+                <td><%= mandal1Cases > 0 && mandal1Cases / mandal1Staff < 1 ? 'Reduce staff or reallocate' : 'No change needed' %></td>
+            </tr>
+            <!-- Display Mandal 2 -->
+            <tr>
+                <td>Mandal 2</td>
+                <td><%= mandal2Cases > 0 ? mandal2Cases + " cases" : "No cases available" %></td>
+                <td><%= mandal2Staff %></td>
+                <td><%= mandal2Cases > 0 ? (mandal2Cases / mandal2Staff).toFixed(2) : "N/A" %></td>
+                <td><%= mandal2Cases > 0 && mandal2Cases / mandal2Staff < 1 ? 'Underutilized' : (mandal2Cases > 0 ? 'Efficient' : 'No cases') %></td>
+                <td><%= mandal2Cases > 0 && mandal2Cases / mandal2Staff < 1 ? 'Reduce staff or reallocate' : 'No change needed' %></td>
+            </tr>
+            <!-- Display Village 1 -->
+            <tr>
+                <td>Village 1</td>
+                <td><%= village1Cases > 0 ? village1Cases + " cases" : "No cases available" %></td>
+                <td><%= village1Staff %></td>
+                <td><%= village1Cases > 0 ? (village1Cases / village1Staff).toFixed(2) : "N/A" %></td>
+                <td><%= village1Cases > 0 && village1Cases / village1Staff < 1 ? 'Underutilized' : (village1Cases > 0 ? 'Efficient' : 'No cases') %></td>
+                <td><%= village1Cases > 0 && village1Cases / village1Staff < 1 ? 'Reduce staff or reallocate' : 'No change needed' %></td>
+            </tr>
+            <!-- Display Village 2 -->
+            <tr>
+                <td>Village 2</td>
+                <td><%= village2Cases > 0 ? village2Cases + " cases" : "No cases available" %></td>
+                <td><%= village2Staff %></td>
+                <td><%= village2Cases > 0 ? (village2Cases / village2Staff).toFixed(2) : "N/A" %></td>
+                <td><%= village2Cases > 0 && village2Cases / village2Staff < 1 ? 'Underutilized' : (village2Cases > 0 ? 'Efficient' : 'No cases') %></td>
+                <td><%= village2Cases > 0 && village2Cases / village2Staff < 1 ? 'Reduce staff or reallocate' : 'No change needed' %></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

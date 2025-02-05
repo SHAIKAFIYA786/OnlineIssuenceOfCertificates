@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Page</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
+            animation: fadeInDown 1.5s;
+        }
+
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .link {
+            text-decoration: none;
+            padding: 15px 25px;
+            border: 2px solid #fff;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link:hover {
+            background: #fff;
+            color: #4facfe;
+            transform: scale(1.1);
+        }
+
+        .link::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: -1;
+            transition: all 0.4s ease;
+        }
+
+        .link:hover::before {
+            top: 0;
+        }
+
+        .link span {
+            display: inline-block;
+            animation: pulse 1s infinite;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Monitoring Space</h1>
+        <div class="links">
+            <a href="http://localhost:5000/certificate-comparison" class="link"><span>Total Requests Comparison At Each Level</span></a>
+            <a href="http://localhost:5000/certificate-status-comparison" class="link"><span>Progess OF all Certificates at each level</span></a>
+            <a href="http://localhost:5000/staff-workload-comparison" class="link"><span>Check The Staff Workload</span></a>
+            <a href="http://localhost:5000/efficiency-comparison" class="link"><span>Check The Staff Efficiency</span></a>
+            <a href="/support" class="link"><span>Support</span></a>
+            <a href="/logout" class="link"><span>Logout</span></a>
+        </div>
+    </div>
+</body>
+</html>

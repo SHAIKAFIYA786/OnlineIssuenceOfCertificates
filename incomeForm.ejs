@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Income Certificate</title>
+    <style>
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #9face6); /* Gradient color from previous navbar */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .form-container {
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4A90E2; /* Blue color from previous navbar */
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        select, input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        select:hover, input:hover {
+            border-color: #4A90E2; /* Hover effect using blue */
+            background-color: #eef5ff;
+        }
+
+        select:focus, input:focus {
+            border-color: #4A90E2; /* Focus effect using blue */
+            outline: none;
+            box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #4A90E2; /* Button color */
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #357ABD; /* Darker blue on hover */
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .form-container {
+                width: 95%;
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            label {
+                font-size: 13px;
+            }
+
+            select, input[type="number"], input[type="text"] {
+                padding: 8px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form action="/api/users/apply/income" method="POST">
+        <h2>Apply for Income Certificate</h2>
+        <label for="state">State:</label>
+        <select id="state" name="state" required onchange="populateDistricts()">
+            <option value="">Select State</option>
+            <option value="state1">State 1</option>
+            <option value="state2">State 2</option>
+        </select><br><br>
+
+        <label for="district">District:</label>
+        <select id="district" name="district" required onchange="populateMandals()">
+            <option value="">Select District</option>
+        </select><br><br>
+
+        <label for="mandal">Mandal:</label>
+        <select id="mandal" name="mandal" required>
+            <option value="">Select Mandal</option>
+        </select><br><br>
+
+        <label for="village">Village (Optional):</label>
+        <select id="village" name="village">
+            <option value="">Select Village</option>
+        </select><br><br>
+
+        <label for="income">Annual Income:</label>
+        <input type="number" id="income" name="income" required><br><br>
+
+        <label for="address">Permanent Address:</label>
+        <input type="text" id="address" name="address" required><br><br>
+
+        <button type="submit">Apply for Income Certificate</button>
+    </form>
+
+    <script>
+        // Dynamic Population of Districts, Mandals, and Villages for Income Certificate Form
+        function populateDistricts() {
+            const state = document.getElementById('state').value;
+            const districtSelect = document.getElementById('district');
+            districtSelect.innerHTML = '<option value="">Select District</option>';
+
+            const districts = state === 'state1' ? ['district1', 'district2'] : ['district3', 'district4'];
+            districts.forEach(district => {
+                const option = document.createElement('option');
+                option.value = district;
+                option.text = district.charAt(0).toUpperCase() + district.slice(1);
+                districtSelect.appendChild(option);
+            });
+        }
+
+        function populateMandals() {
+            const district = document.getElementById('district').value;
+            const mandalSelect = document.getElementById('mandal');
+            mandalSelect.innerHTML = '<option value="">Select Mandal</option>';
+
+            const mandals = district === 'district1' ? ['mandal1', 'mandal2'] : ['mandal3', 'mandal4'];
+            mandals.forEach(mandal => {
+                const option = document.createElement('option');
+                option.value = mandal;
+                option.text = mandal.charAt(0).toUpperCase() + mandal.slice(1);
+                mandalSelect.appendChild(option);
+            });
+
+            // Reset village dropdown
+            document.getElementById('village').innerHTML = '<option value="">Select Village</option>';
+        }
+
+        document.getElementById('mandal').addEventListener('change', function () {
+            const mandal = this.value;
+            const villageSelect = document.getElementById('village');
+            villageSelect.innerHTML = '<option value="">Select Village</option>';
+
+            const villages = mandal === 'mandal1' ? ['village1', 'village2'] : ['village3', 'village4'];
+            villages.forEach(village => {
+                const option = document.createElement('option');
+                option.value = village;
+                option.text = village.charAt(0).toUpperCase() + village.slice(1);
+                villageSelect.appendChild(option);
+            });
+        });
+        async function submitForm() {
+            const form = document.getElementById('incomeForm');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            try {
+        const response = await fetch('/api/users/apply/income', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+            credentials: 'include', // Send cookies with request
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            alert('Income Certificate Application submitted successfully!');
+        } else {
+            alert(`Error: ${result.message || 'Could not submit application'}`);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An unexpected error occurred');
+    }
+        }
+    </script>
+
+</body>
+</html>

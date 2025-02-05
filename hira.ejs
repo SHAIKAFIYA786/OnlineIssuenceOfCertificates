@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caste Certificate Issuance Process</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #f0f8ff, #add8e6);
+            color: #333;
+        }
+
+        .step-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .step {
+            text-align: center;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 20px 0;
+            position: relative;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .step.completed {
+            background-color: #4caf50;
+            color: white;
+            border-color: #4caf50;
+        }
+
+        .line {
+            width: 5px;
+            height: 50px;
+            background-color: #ddd;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        .line.completed {
+            background-color: #4caf50;
+        }
+
+        .download-btn {
+            margin-top: 30px;
+            padding: 12px 24px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #45a049;
+        }
+
+        .certificate-img {
+            display: none;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .certificate-img img {
+    background-image: url('./certificate.jpg');
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+    </style>
+</head>
+<body>
+
+<div class="step-container">
+    <div class="steps">
+        <div class="step" id="vra-step">VRA Verification</div>
+        <div class="line" id="line-vra-vro"></div>
+        <div class="step" id="vro-step">VRO Verification</div>
+        <div class="line" id="line-vro-mro"></div>
+        <div class="step" id="mro-step">MRO Verification</div>
+        <div class="line" id="line-mro-issue"></div>
+        <div class="step" id="issue-step">Certificate Issuance</div>
+    </div>
+
+    <button class="download-btn" id="download-btn" onclick="downloadCertificate()">Download Certificate</button>
+    <div class="certificate-img" id="certificate-img"></div>
+</div>
+
+<script>
+    const steps = ['vra', 'vro', 'mro', 'issue'];
+
+    function markStepCompleted(step) {
+        document.getElementById(`${step}-step`).classList.add('completed');
+        if (step !== 'issue') {
+            document.getElementById(`line-${step}-${steps[steps.indexOf(step) + 1]}`).classList.add('completed');
+        }
+    }
+
+    setTimeout(() => {
+        markStepCompleted('vra');
+        setTimeout(() => {
+            markStepCompleted('vro');
+            setTimeout(() => {
+                markStepCompleted('mro');
+                setTimeout(() => {
+                    markStepCompleted('issue');
+                    document.getElementById('download-btn').style.display = 'inline-block';
+                }, 1000);
+            }, 1000);
+        }, 1000);
+    }, 1000);
+
+    function downloadCertificate() {
+        const imgElement = document.createElement('img');
+        imgElement.src = './images/b.jpg'; // Replace with the path to your certificate image
+        imgElement.alt = 'Certificate Image';
+        document.getElementById('certificate-img').appendChild(imgElement);
+        document.getElementById('certificate-img').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

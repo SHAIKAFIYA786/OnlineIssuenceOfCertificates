@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Status</title>
+</head>
+<body>
+  <h1>Status for <%= name %></h1>
+  
+  <% if (statusData.length === 0) { %>
+    <p>No certificate applications found.</p>
+  <% } else { %>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Request Date</th>
+          <th>Expected Date</th>
+          <th>Status</th>
+          <th>Actual Date</th>
+          <th>Backlog (days)</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody> 
+        <% statusData.forEach(data => { %>
+          <tr>
+            <td><%= data.type %></td>
+            <td><%= new Date(data.requestDate).toLocaleDateString() %></td>
+            <td><%= data.expectedDate ? new Date(data.expectedDate).toLocaleDateString() : 'N/A' %></td>
+            <td><%= data.status %></td>
+            <td><%= data.actualDate ? new Date(data.actualDate).toLocaleDateString() : 'N/A' %></td>
+            <td><%= data.backlog ? data.backlog.toFixed(2) : 'N/A' %></td>
+            <td>
+              <% if (data.status === 'Accepted') { %>
+                <a href="/download/<%= data.type.toLowerCase() %>">Download</a>
+              <% } else { %>
+                N/A
+              <% } %>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } %>
+</body>
+</html>

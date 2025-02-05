@@ -1,0 +1,219 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graphical Layout</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fc;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    #chart-container {
+      width: 25vw;
+      height: 45vh;
+      position: relative;
+    }
+
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <h1>Graphical Layout for Certificate Data</h1>
+    <div id="chart-container">
+      <canvas id="chart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    // Data passed from the server
+    const data = {
+      labels: ['Total Certificates', 'Caste Certificates', 'Income Certificates', 'EWS Certificates'],
+      datasets: [{
+        label: 'Certificate Counts',
+        data: [
+          <%= total %>, 
+          <%= caste %>, 
+          <%= income %>, 
+          <%= ews %>
+        ],
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+    // Create chart
+    const ctx = document.getElementById('chart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: data,
+      options: {
+        responsive: true, // Make the chart responsive to resizing
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+</body>
+
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graphical Layout</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7fc;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    #chart-container {
+      width: 50vw;
+      height: 60vh;
+      position: relative;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 30px;
+    }
+
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .chart-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #444;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .legend {
+      font-size: 14px;
+      color: #555;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <h1>Graphical Layout for Certificate Data</h1>
+    <div id="chart-container">
+      <div class="chart-title"></div>
+      <canvas id="chart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    // Data passed from the server
+    const data = {
+      labels: ['Total Certificates', 'Caste Certificates', 'Income Certificates', 'EWS Certificates'],
+      datasets: [{
+        label: 'Certificate Counts',
+        data: [
+          <%= total %>, 
+          <%= caste %>, 
+          <%= income %>, 
+          <%= ews %>
+        ],
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+    // Create chart
+    const ctx = document.getElementById('chart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: data,
+      options: {
+        responsive: true, // Make the chart responsive to resizing
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Certificate Counts by Type',
+            font: {
+              size: 18,
+              weight: 'bold'
+            },
+            color: '#333'
+          }
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

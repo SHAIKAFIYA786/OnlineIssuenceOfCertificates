@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Status Comparison</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        h2 {
+            margin: 20px 0;
+            text-align: center;
+            color: #343a40;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: #ffffff;
+            font-size: 16px;
+        }
+        td {
+            font-size: 14px;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e9ecef;
+        }
+        .btn-graph-view {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-graph-view:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- pending accepted and rejected comparison at each level -->
+    <h2>Certificate Status Comparison</h2>
+    <a href="http://localhost:5000/states-comparison-graphs" class="btn-graph-view">See Graphical View</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Certificate Type</th>
+                <th>State 1 (Pending)</th>
+                <th>State 1 (Accepted)</th>
+                <th>State 1 (Rejected)</th>
+                <th>State 2 (Pending)</th>
+                <th>State 2 (Accepted)</th>
+                <th>State 2 (Rejected)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Caste Certificate</td>
+                <td><%= state1Data.castePending %></td>
+                <td><%= state1Data.casteAccepted %></td>
+                <td><%= state1Data.casteRejected %></td>
+                <td><%= state2Data.castePending %></td>
+                <td><%= state2Data.casteAccepted %></td>
+                <td><%= state2Data.casteRejected %></td>
+            </tr>
+            <tr>
+                <td>Income Certificate</td>
+                <td><%= state1Data.incomePending %></td>
+                <td><%= state1Data.incomeAccepted %></td>
+                <td><%= state1Data.incomeRejected %></td>
+                <td><%= state2Data.incomePending %></td>
+                <td><%= state2Data.incomeAccepted %></td>
+                <td><%= state2Data.incomeRejected %></td>
+            </tr>
+            <tr>
+                <td>EWS Certificate</td>
+                <td><%= state1Data.ewsPending %></td>
+                <td><%= state1Data.ewsAccepted %></td>
+                <td><%= state1Data.ewsRejected %></td>
+                <td><%= state2Data.ewsPending %></td>
+                <td><%= state2Data.ewsAccepted %></td>
+                <td><%= state2Data.ewsRejected %></td>
+            </tr>
+            <tr>
+                <td><strong>Total Requests</strong></td>
+                <td><strong><%= state1Data.castePending + state1Data.incomePending + state1Data.ewsPending %></strong></td>
+                <td><strong><%= state1Data.casteAccepted + state1Data.incomeAccepted + state1Data.ewsAccepted %></strong></td>
+                <td><strong><%= state1Data.casteRejected + state1Data.incomeRejected + state1Data.ewsRejected %></strong></td>
+                <td><strong><%= state2Data.castePending + state2Data.incomePending + state2Data.ewsPending %></strong></td>
+                <td><strong><%= state2Data.casteAccepted + state2Data.incomeAccepted + state2Data.ewsAccepted %></strong></td>
+                <td><strong><%= state2Data.casteRejected + state2Data.incomeRejected + state2Data.ewsRejected %></strong></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

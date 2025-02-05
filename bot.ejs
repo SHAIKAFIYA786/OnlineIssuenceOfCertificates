@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Chatbot</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #7ba0c6;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            color: #f3f3f3;
+        }
+        .chat-container {
+            width: 80%;
+            max-width: 700px;
+            margin: 30px auto;
+            background: #9c9595;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .chat-output {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #554b4b;
+            font-size: 16px;
+        }
+        .chat-output p {
+            margin: 10px 0;
+        }
+        .chat-output .user {
+            text-align: right;
+            color: #99cafc;
+        }
+        .chat-output .bot {
+            text-align: left;
+            color: #b4c4b4;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        select, button {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #00509E;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #fff;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #00509E;
+            color: #fff;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #003366;
+        }
+        .faq-buttons button {
+            margin: 5px;
+            width: auto;
+            background-color: #28a745;
+            color: white;
+            font-size: 14px;
+        }
+        .faq-buttons button:hover {
+            background-color: #218838;
+        }
+        @media (max-width: 600px) {
+            .chat-container {
+                width: 95%;
+            }
+            button, select {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>FAQ Chatbot</h1>
+    <div class="chat-container">
+        <div class="chat-output" id="chat-output"></div>
+
+        <!-- Category Select -->
+        <div class="form-group">
+            <select id="category-select" onchange="showFAQs()">
+                <option value="" disabled selected>Choose your certificate type:</option>
+                <option value="INCOME">Income Certificate</option>
+                <option value="CASTE">Caste Certificate</option>
+                <option value="EWS">EWS Certificate</option>
+            </select>
+        </div>
+
+        <!-- Language Select -->
+        <div class="form-group">
+            <select id="language-select" onchange="changeLanguage()">
+                <option value="en" selected>Choose Language: English</option>
+                <option value="hi">हिंदी</option>
+            </select>
+        </div>
+
+        <div class="faq-buttons" id="faq-buttons"></div>
+    </div>
+
+    <script>
+        const faqData = {
+            INCOME: {
+                en: {
+                    "What documents are required?": "You need Income proof, ID proof, and Address proof.",
+                    "How long does it take to process?": "It takes approximately 7–10 working days.",
+                    "Where to apply for income certificate?": "You can apply online or at a MeeSeva center.",
+                    "Can students apply for an income certificate?": "Yes, students can apply to avail of educational benefits.",
+                    "What is the fee for an income certificate?": "The fee varies by state but is generally nominal."
+                },
+                hi: {
+                    "What documents are required?": "आपको आय प्रमाण पत्र, पहचान प्रमाण पत्र, और पता प्रमाण पत्र की आवश्यकता है।",
+                    "How long does it take to process?": "इसे संसाधित करने में लगभग 7–10 कार्य दिवस लगते हैं।",
+                    "Where to apply for income certificate?": "आप इसे ऑनलाइन या MeeSeva केंद्र पर आवेदन कर सकते हैं।",
+                    "Can students apply for an income certificate?": "हाँ, छात्र शैक्षणिक लाभ प्राप्त करने के लिए आवेदन कर सकते हैं।",
+                    "What is the fee for an income certificate?": "शुल्क राज्य के अनुसार भिन्न होता है लेकिन आम तौर पर यह नाममात्र होता है।"
+                }
+            },
+            CASTE: {
+                en: {
+                    "Who can apply for a caste certificate?": "SC, ST, and OBC category people can apply.",
+                    "What documents are required for caste certificate?": "Caste proof, ID proof, and address proof are required.",
+                    "Where to apply for caste certificate?": "You can apply online or at your local revenue office.",
+                    "What is the validity of a caste certificate?": "The validity depends on the state rules but is generally lifetime unless revoked.",
+                    "Can minors apply for caste certificates?": "Yes, minors can apply through their parents or guardians."
+                },
+                hi: {
+                    "Who can apply for a caste certificate?": "SC, ST और OBC श्रेणी के लोग आवेदन कर सकते हैं।",
+                    "What documents are required for caste certificate?": "जाति प्रमाण, पहचान प्रमाण, और पता प्रमाण की आवश्यकता है।",
+                    "Where to apply for caste certificate?": "आप इसे ऑनलाइन या अपने स्थानीय राजस्व कार्यालय पर आवेदन कर सकते हैं।",
+                    "What is the validity of a caste certificate?": "मान्यता राज्य के नियमों पर निर्भर करती है लेकिन आमतौर पर यह आजीवन होती है।",
+                    "Can minors apply for caste certificates?": "हाँ, नाबालिग अपने माता-पिता या अभिभावकों के माध्यम से आवेदन कर सकते हैं।"
+                }
+            },
+            EWS: {
+                en: {
+                    "What is the eligibility for EWS?": "Income must be below ₹8 lakh and meet certain land/property criteria.",
+                    "Is the EWS certificate valid for education?": "Yes, it's valid for the 10% reservation in education and government jobs.",
+                    "How to apply for EWS certificate?": "You can apply online or at your local municipality office.",
+                    "Who will apply for the EWS certificate?": "General category people.",
+                    "What is the processing time for an EWS certificate?": "The processing time is usually 7–15 working days."
+                },
+                hi: {
+                    "What is the eligibility for EWS?": "आय ₹8 लाख से कम होनी चाहिए और कुछ भूमि/संपत्ति मानदंडों को पूरा करना चाहिए।",
+                    "Is the EWS certificate valid for education?": "हाँ, यह शिक्षा और सरकारी नौकरियों में 10% आरक्षण के लिए मान्य है।",
+                    "How to apply for EWS certificate?": "आप इसे ऑनलाइन या अपने स्थानीय नगर पालिका कार्यालय पर आवेदन कर सकते हैं।",
+                    "Who will apply for the EWS certificate?": "सामान्य श्रेणी के लोग।",
+                    "What is the processing time for an EWS certificate?": "आम तौर पर 7–15 कार्य दिवस लगते हैं।"
+                }
+            }
+        };
+
+        let selectedCategory = '';
+        let selectedLanguage = 'en';
+
+        // Show the FAQs after selecting the certificate category
+        function showFAQs() {
+            const category = document.getElementById("category-select").value;
+            selectedCategory = category;
+            const faqButtons = document.getElementById("faq-buttons");
+            faqButtons.innerHTML = '';
+
+            if (category) {
+                const faqQuestions = Object.keys(faqData[category][selectedLanguage]);
+                faqQuestions.forEach((question) => {
+                    const button = document.createElement("button");
+                    button.textContent = question;
+                    button.onclick = () => showAnswer(question);
+                    faqButtons.appendChild(button);
+                });
+            }
+        }
+
+        // Display the answer based on the question clicked
+        function showAnswer(question) {
+            const chatOutput = document.getElementById("chat-output");
+            chatOutput.innerHTML += `<p class="user"><strong>You:</strong> ${question}</p>`;
+            chatOutput.innerHTML += `<p class="bot"><strong>Bot:</strong> ${faqData[selectedCategory][selectedLanguage][question]}</p>`;
+            chatOutput.scrollTop = chatOutput.scrollHeight;
+        }
+
+        // Change the language of the responses
+        function changeLanguage() {
+            selectedLanguage = document.getElementById("language-select").value;
+            showFAQs();  // Reload FAQs in the selected language
+        }
+    </script>
+</body>
+</html>

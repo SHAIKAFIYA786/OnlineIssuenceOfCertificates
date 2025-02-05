@@ -1,0 +1,504 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to the Dashboard</h1>
+    <nav>
+        <ul>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/logout">Logout</a></li>
+            <li>
+                <a href="#">Apply for Certificate</a>
+                <ul>
+                    <li><a href="/api/users/apply/caste">Caste</a></li>
+                    <li><a href="/api/users/apply/income">Income</a></li>
+                    <li><a href="/api/users/apply/ews">EWS</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: black;
+            background-color: #f4f4f4;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        /* Navbar Styles */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            height: 10vh;
+        }
+
+        .navbar-left, .navbar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-left {
+            flex: 1;
+        }
+
+        .navbar-left a {
+            font-weight: bold;
+            text-decoration: none;
+            color: #ff9f00;
+            font-size: 18px;
+        }
+
+        .navbar-right ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .navbar-right ul li {
+            margin-left: 20px;
+        }
+
+        .navbar-right ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-right ul li a:hover {
+            color: #ff9f00;
+        }
+
+        /* Navbar Styles */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(145deg, #ff9f00, #ff6600); /* Gradient background */
+    color: white;
+    padding: 15px 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    height: 12vh; /* Adjusted for better spacing */
+}
+
+.navbar-left, .navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-left {
+    flex: 1;
+}
+
+.navbar-left a {
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    padding: 0 10px;
+    transition: color 0.3s ease;
+}
+
+/* Hover effect for the left side link */
+.navbar-left a:hover {
+    color: #ff6600;
+}
+
+/* Right side navigation items */
+.navbar-right ul {
+    display: flex;
+    list-style: none;
+    gap: 20px; /* Space between menu items */
+}
+
+.navbar-right ul li {
+    padding: 5px 10px;
+}
+
+.navbar-right ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover effect for navigation items */
+.navbar-right ul li a:hover {
+    background-color: #ff6600;
+    color: white;
+}
+
+/* Responsive Design for Navbar */
+@media (max-width: 768px) {
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        height: auto; /* Adjust height for small screens */
+    }
+
+    .navbar-left, .navbar-right {
+        flex: 1;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .navbar-right ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+}
+
+
+        /* Main Content */
+        .main-container {
+            display: flex;
+            height: calc(100vh - 60px); /* Adjust height based on navbar */
+            overflow: hidden;
+        }
+
+        /* Left Section: Animated Options */
+        .options-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 30px;
+            gap: 20px;
+        }
+
+        .option {
+            background-color: black;
+            color: white;
+            padding: 15px 20px;
+            font-size: 20px;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transform: translateX(-100%);
+            animation: slideIn 1s forwards;
+        }
+
+        .option:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .option:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .option:hover {
+            background-color: #ff9f00;
+        }
+        /* Options Container */
+.options-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+    gap: 30px;
+}
+
+/* Individual Options */
+.option {
+    background: linear-gradient(145deg, #ff9f00, #ff6600); /* Gradient background */
+    color: white;
+    padding: 15px 20px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 25px; /* Rounded corners */
+    cursor: pointer;
+    transform: translateX(-100%);
+    animation: slideIn 1s forwards;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: all 0.3s ease; /* Smooth transition for hover */
+}
+
+.option:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.option:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* Animation for sliding in */
+@keyframes slideIn {
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Hover effect for options */
+.option:hover {
+    background-color: #ff6600; /* Darker shade on hover */
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+/* New 'Apply for Certificate' button */
+.option.apply-for-certificate {
+    background: #4caf50; /* Green background for 'Apply for Certificate' */
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.option.apply-for-certificate:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: scale(1.05); /* Zoom effect */
+}
+
+.image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e6e6e6;
+    position: relative;
+    background-image: url('/images/k.jpg'); 
+    background-size: cover ;  /* Ensure the image covers the whole container */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; 
+    max-width: 100%; /* Ensure it doesn't overflow horizontally */
+    max-height: 100%;
+    /* Prevent repeating the image */
+}
+
+        .image-container img {
+            max-width: 80%;
+            max-height: 80%;
+            opacity: 0.9;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .navbar-left {
+                margin-bottom: 10px;
+            }
+
+            .main-container {
+                flex-direction: column;
+            }
+
+            .options-container {
+                flex: none;
+                width: 100%;
+                align-items: center;
+            }
+
+            .image-container {
+                flex: none;
+                height: 300px;
+            }
+
+            .image-container img {
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+        .language-switcher {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Button Styles */
+        .language-switcher button {
+            padding: 10px 20px;
+            border: 2px solid #fff;
+            border-radius: 25px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .language-switcher button:hover {
+            background: #fff;
+            color: #ff9a9e;
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Button Active State */
+        .language-switcher button.active {
+            background: #fff;
+            color: #ff9a9e;
+            border-color: #ff9a9e;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+     
+    <!-- <nav>
+        <div class="navbar-left">
+             
+            <a href="/officiallogin">Admin Space</a>
+
+
+        </div>
+        <div class="navbar-right">
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="http://localhost:5000/certificate-status">Track Status</a></li>
+                 
+                <li><a href="/aboutus">About Us</a></li>
+                <li><a href="/contact-us">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    
+    <div class="main-container">
+         
+            <div class="options-container">
+                <div class="option">Apply for certificate here</div>
+                <div class="option" onclick="window.location.href='/api/users/apply/caste'">Apply for Caste Certificate</div>
+                <div class="option" onclick="window.location.href='/api/users/apply/income'">Apply for Income Certificate</div>
+                <div class="option" onclick="window.location.href='/api/users/apply/ews'">Apply for EWS Certificate</div>
+            </div>
+
+         
+        <div class="image-container">
+             
+        </div>
+    </div> -->
+    <nav>
+        <!-- main dashboard -->
+        <div class="navbar-left">
+            <a href="/officiallogin">Admin Space</a>
+            <a href=" http://localhost:5000/hira">Certificte status</a>
+        </div>
+        <div class="navbar-right">
+            <ul>
+                <li><a href="/index" id="dashboard-text">Dashboard</a></li>
+                <li><a href="http://localhost:5000/certificate-status" id="track-status-text">Track Status</a></li>
+                <li><a href="/aboutus" id="about-us-text">About Us</a></li>
+                <li><a href="/contact-us" id="contact-us-text">Contact Us</a></li>
+                <li><a href="/profile" id="contact-us-text">profile</a></li>
+            </ul>
+            <!-- Language Switcher -->
+            <div class="language-switcher">
+                <button onclick="changeLanguage('en')">English</button>
+                <button onclick="changeLanguage('hi')">हिन्दी</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="options-container">
+            <div class="option" id="apply-certificate-text">Apply for certificate here</div>
+            <div class="option" id="apply-caste-text" onclick="window.location.href='/api/users/apply/caste'">Apply for Caste Certificate</div>
+            <div class="option" id="apply-income-text" onclick="window.location.href='/api/users/apply/income'">Apply for Income Certificate</div>
+            <div class="option" id="apply-ews-text" onclick="window.location.href='/api/users/apply/ews'">Apply for EWS Certificate</div>
+        </div>
+        <div class="image-container">
+            <img src="/views/k.jpg" alt="">
+        </div>
+    </div>
+
+     <script>// Speech synthesis function
+        function speakText(text, lang = 'en') {
+            const utterance = new SpeechSynthesisUtterance(text);
+            // Set language based on selected language
+            if (lang === 'hi') {
+                utterance.lang = 'hi-IN';  // Hindi (India)
+            } else {
+                utterance.lang = 'en-US';  // English (US)
+            }
+        
+            // Speak the text
+            speechSynthesis.speak(utterance);
+        }
+        
+        // Function to change language for the content
+        function changeLanguage(lang) {
+            // Update text content based on selected language
+            if (lang === 'hi') {
+                document.getElementById('dashboard-text').innerText = 'डैशबोर्ड';
+                document.getElementById('track-status-text').innerText = 'स्टेटस ट्रैक करें';
+                document.getElementById('about-us-text').innerText = 'हमारे बारे में';
+                document.getElementById('contact-us-text').innerText = 'संपर्क करें';
+                document.getElementById('apply-certificate-text').innerText = 'यहां प्रमाणपत्र के लिए आवेदन करें';
+                document.getElementById('apply-caste-text').innerText = 'जाति प्रमाणपत्र के लिए आवेदन करें';
+                document.getElementById('apply-income-text').innerText = 'आय प्रमाणपत्र के लिए आवेदन करें';
+                document.getElementById('apply-ews-text').innerText = 'ईडब्ल्यूएस प्रमाणपत्र के लिए आवेदन करें';
+            } else {
+                document.getElementById('dashboard-text').innerText = 'Dashboard';
+                document.getElementById('track-status-text').innerText = 'Track Status';
+                document.getElementById('about-us-text').innerText = 'About Us';
+                document.getElementById('contact-us-text').innerText = 'Contact Us';
+                document.getElementById('apply-certificate-text').innerText = 'Apply for certificate here';
+                document.getElementById('apply-caste-text').innerText = 'Apply for Caste Certificate';
+                document.getElementById('apply-income-text').innerText = 'Apply for Income Certificate';
+                document.getElementById('apply-ews-text').innerText = 'Apply for EWS Certificate';
+            }
+            // Store the selected language in localStorage
+            localStorage.setItem('language', lang);
+        }
+        
+        // Initialize a timeout variable for hover delay
+        let hoverTimer;
+        
+        // Add event listeners for each option
+        document.querySelectorAll('.option,#dashboard-text, #track-status-text, #about-us-text, #contact-us-text').forEach(option => {
+            option.addEventListener('mouseover', () => {
+                // Get the current language selected (default is English)
+                const currentLang = localStorage.getItem('language') || 'en';
+        
+                // Set a timeout to trigger after 5 seconds
+                hoverTimer = setTimeout(() => {
+                    speakText(option.innerText, currentLang);
+                }, 1000); // 5000ms (5 seconds)
+            });
+        
+            // Reset the timer if mouse leaves the option before 5 seconds
+            option.addEventListener('mouseleave', () => {
+                clearTimeout(hoverTimer);
+            });
+        });
+        </script>
+</body>
+</html>

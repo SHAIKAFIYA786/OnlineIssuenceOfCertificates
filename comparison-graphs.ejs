@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Status Comparison</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .chart-container {
+            width: 30%;
+            height: 300px;
+            display: inline-block;
+            margin: 10px;
+        }
+        canvas {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Certificate Status Comparison - Statewise</h1>
+
+    <div class="chart-container">
+        <canvas id="casteChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="incomeChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="ewsChart"></canvas>
+    </div>
+
+    <script>
+        const results = <%- JSON.stringify(results) %>;
+
+        const labels = ['Pending', 'Accepted', 'Rejected'];
+
+        const createChart = (ctx, title, data1, data2) => {
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'State 1',
+                            data: data1,
+                            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'State 2',
+                            data: data2,
+                            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: title
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        };
+
+        // Caste Chart
+        createChart(
+            document.getElementById('casteChart'),
+            'Caste Certificate Status',
+            results.state1.caste,
+            results.state2.caste
+        );
+
+        // Income Chart
+        createChart(
+            document.getElementById('incomeChart'),
+            'Income Certificate Status',
+            results.state1.income,
+            results.state2.income
+        );
+
+        // EWS Chart
+        createChart(
+            document.getElementById('ewsChart'),
+            'EWS Certificate Status',
+            results.state1.ews,
+            results.state2.ews
+        );
+    </script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <style>
+         
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color:#ff9f00;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input[type="email"],
+        input[type="text"],
+        select {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        select {
+            background: #f9f9f9;
+            cursor: pointer;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color:linear-gradient(145deg, #ff9f00, #ff6600);;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            background-color: #ff9f00;
+        }
+
+        button[type="submit"]:hover {
+            background-color: linear-gradient(145deg, #ff9f00, #ff6600);;
+        }
+
+
+        #stateDiv,
+        #districtDiv,
+        #mandalDiv,
+        #villageDiv {
+            margin-bottom: 15px;
+        }
+
+        
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            input[type="email"],
+            input[type="text"],
+            select {
+                font-size: 13px;
+            }
+
+            button[type="submit"] {
+                font-size: 14px;
+                background-color:#ff9f00;;
+            }
+        }
+        #adminLink{
+            margin-top: 30px;
+            text-decoration: none;
+            color: #ff9f00;
+        }
+        #adminPromptDiv h3{
+            color: #ff9f00;
+        }
+        #adminSubmitButton{
+            background-color: #ff9f00;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Admin Login</h1>
+        <form action="/state-progress" method="POST">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="officerId" placeholder="Officer ID" required oninput="toggleFormFields()">
+
+            <div id="stateDiv">
+                <select name="state" id="stateSelect">
+                    <option value="state1">State1</option>
+                    <option value="state2">State2</option>
+                </select>
+            </div>
+
+
+            <div id="districtDiv" style="display: none;">
+                <select name="district">
+                    <option value="district1">District1</option>
+                    <option value="district2">District2</option>
+                </select>
+            </div>
+
+            <div id="mandalDiv" style="display: none;">
+                <select name="mandal">
+                    <option value="mandal1">Mandal1</option>
+                    <option value="mandal2">Mandal2</option>
+                </select>
+            </div>
+
+            <div id="villageDiv" style="display: none;">
+                <select name="village">
+                    <option value="village1">Village1</option>
+                    <option value="village2">Village2</option>
+                </select>
+            </div>
+
+            <button type="submit">Login</button>
+            <!-- <div>
+                <a href="/admin/pending-applications">Click as Admin</a>
+            </div> -->
+            <div>
+                <a href="#" id="adminLink">See Requests</a>
+            </div>
+            
+            <div id="adminPromptDiv" style="display: none;">
+                <h3>Enter Admin Password</h3>
+                <input type="password" id="adminPasswordInput" placeholder="Password" class="admin-input">
+                <button id="adminSubmitButton">Submit</button>
+            </div>
+            
+        </form>
+    </div>
+
+    <script>
+         
+        // function toggleFormFields() {
+        //     const officerId = document.querySelector('input[name="officerId"]').value.trim().toLowerCase();
+        //     document.getElementById("stateDiv").style.display = "none";
+        //     document.getElementById("districtDiv").style.display = "none";
+        //     document.getElementById("mandalDiv").style.display = "none";
+        //     document.getElementById("villageDiv").style.display = "none";
+
+        //     if (officerId === 'state') {
+        //         document.getElementById("stateDiv").style.display = "block";  
+        //     } else if (officerId === 'district') {
+        //         document.getElementById("districtDiv").style.display = "block";   
+        //     } else if (officerId === 'mandal') {
+        //         document.getElementById("mandalDiv").style.display = "block";  
+        //         document.getElementById("villageDiv").style.display = "block";  
+        //     }
+        // }
+        function toggleFormFields() {
+    const officerId = document.querySelector('input[name="officerId"]').value.trim().toLowerCase();
+
+    // Hide all divs by default
+    document.getElementById("stateDiv").style.display = "none";
+    document.getElementById("districtDiv").style.display = "none";
+    document.getElementById("mandalDiv").style.display = "none";
+    document.getElementById("villageDiv").style.display = "none";
+
+    // Show relevant divs based on officerId
+    if (officerId === 'state') {
+        document.getElementById("stateDiv").style.display = "block";
+    } else if (officerId === 'district') {
+        document.getElementById("districtDiv").style.display = "block";
+    } else if (officerId === 'mandal') {
+        document.getElementById("mandalDiv").style.display = "block";
+        document.getElementById("villageDiv").style.display = "block";
+    }
+}
+
+        document.getElementById('adminLink').addEventListener('click', function (e) {
+    e.preventDefault(); // Prevent default link behavior
+
+    // Show the password prompt
+    document.getElementById('adminPromptDiv').style.display = 'block';
+});
+
+document.getElementById('adminSubmitButton').addEventListener('click', function () {
+    const enteredPassword = document.getElementById('adminPasswordInput').value.trim();
+
+    if (enteredPassword === '123') {
+        window.location.href = 'http://localhost:5000/admin/pending-applications'; // Redirect to the admin page
+    } else { 
+        alert('Invalid Password'); // Show error for incorrect password
+    }
+});
+
+    </script>
+</body>
+
+</html>

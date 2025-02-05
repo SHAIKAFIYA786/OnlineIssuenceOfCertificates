@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caste Certificate Issuance Process</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #f0f8ff, #add8e6);
+            color: #333;
+        }
+
+        .step-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .step {
+            text-align: center;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 20px 0;
+            position: relative;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .step.completed {
+            background-color: #4caf50;
+            color: white;
+            border-color: #4caf50;
+        }
+
+        .step.failed {
+            background-color: red;
+            color: white;
+            border-color: red;
+        }
+
+        .line {
+            width: 5px;
+            height: 50px;
+            background-color: #ddd;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        .line.completed {
+            background-color: #4caf50;
+        }
+
+        .download-btn {
+            margin-top: 30px;
+            padding: 12px 24px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #45a049;
+        }
+
+        .certificate-img {
+            display: none;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .certificate-img img {
+            background-image: url('./certificate.jpg');
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Popup form styles */
+        .popup-form {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+        }
+
+        .popup-content button {
+            padding: 10px;
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup-content button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="step-container">
+    <div class="steps">
+        <div class="step" id="vra-step">VRA Verification</div>
+        <div class="line" id="line-vra-vro"></div>
+        <div class="step" id="vro-step">VRO Verification</div>
+        <div class="line" id="line-vro-mro"></div>
+        <div class="step" id="mro-step">MRO Verification</div>
+        <div class="line" id="line-mro-issue"></div>
+        <div class="step" id="issue-step">Certificate Issuance</div>
+    </div>
+
+    <button class="download-btn" id="download-btn" onclick="downloadCertificate()">Download Certificate</button>
+    <div class="certificate-img" id="certificate-img"></div>
+</div>
+
+<div class="popup-form" id="popup-form">
+    <div class="popup-content">
+        <p id="popup-message"></p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+</div>
+
+<script>
+    const steps = ['vra', 'vro', 'mro', 'issue'];
+    let processLocked = false; // Variable to track if the process is locked due to a failure
+
+    // function markStepCompleted(step) {
+    //     if (processLocked) return;  // Prevent any further progress if the process is locked
+    //     document.getElementById(`${step}-step`).classList.add('completed');
+    //     if (step !== 'issue') {
+    //         document.getElementById(`line-${step}-${steps[steps.indexOf(step) + 1]}`).classList.add('completed');
+    //     }
+    // }
+    function markStepCompleted(step) {
+    if (processLocked) return; // Prevent further progress if the process is locked
+    document.getElementById(`${step}-step`).classList.add('completed');
+    if (step !== 'issue' && !processLocked) {
+        document.getElementById(`line-${step}-${steps[steps.indexOf(step) + 1]}`).classList.add('completed');
+    }
+}
+
+    function markStepFailed(step) {
+        document.getElementById(`${step}-step`).classList.add('failed');
+        if (step !== 'issue') {
+            document.getElementById(`line-${step}-${steps[steps.indexOf(step) + 1]}`).classList.add('failed');
+        }
+    }
+
+    function showPopup(message) {
+        document.getElementById('popup-message').innerText = message;
+        document.getElementById('popup-form').style.display = 'flex';
+    }
+
+    function closePopup() {
+        document.getElementById('popup-form').style.display = 'none';
+    }
+
+    // function randomFailureScenario() {
+    //     const randomStep = steps[Math.floor(Math.random() * steps.length)];
+    //     markStepFailed(randomStep);
+
+    //     // Generate a random failure message
+    //     const failureMessages = [
+    //         'Request transferred to RDU.',
+    //         'Aadhar is not verified.',
+    //         'Signature doesn\'t match.',
+    //         'Failed to authenticate.'
+    //     ];
+    //     const randomMessage = failureMessages[Math.floor(Math.random() * failureMessages.length)];
+
+    //     setTimeout(() => {
+    //         alert(randomMessage);  // Show alert message
+    //         processLocked = true; // Lock the process to prevent further progress
+    //         if (randomMessage === 'Aadhar is not verified.') {
+    //             showPopup(randomMessage);  // Show the Aadhar verification pop-up form
+    //         }
+    //     }, 1000);
+    // }
+//     function randomFailureScenario() {
+//     const randomStep = steps[Math.floor(Math.random() * steps.length)];
+//     markStepFailed(randomStep);
+
+//     const failureMessages = [
+//         'Request transferred to RDU.',
+//         'Aadhar is not verified.',
+//         'Signature doesn\'t match.',
+//         'Failed to authenticate.'
+//     ];
+//     const randomMessage = failureMessages[Math.floor(Math.random() * failureMessages.length)];
+
+//     setTimeout(() => {
+//         alert(randomMessage);  // Show alert message
+//         processLocked = true; // Lock the process to prevent further progress
+//         if (randomMessage === 'Aadhar is not verified.') {
+//             showPopup(randomMessage);  // Show the Aadhar verification pop-up form
+//         }
+//     }, 1000);
+// }
+
+
+//     // Simulate the process
+//     setTimeout(() => {
+//         markStepCompleted('vra');
+//         setTimeout(() => {
+//             markStepCompleted('vro');
+//             setTimeout(() => {
+//                 markStepCompleted('mro');
+//                 setTimeout(() => {
+//                     markStepCompleted('issue');
+//                     document.getElementById('download-btn').style.display = 'inline-block';
+//                 }, 1000);
+//             }, 1000);
+//         }, 1000);
+//     }, 1000);
+
+//     // Trigger a random failure after some time
+//     setTimeout(() => {
+//         randomFailureScenario();
+//     }, 4000);  // Adjust this to trigger failure after some time
+// Flag to check if a failure has occurred
+let failureOccurred = false;
+
+function markStepCompleted(step) {
+    if (failureOccurred) return;  // Prevent marking steps as completed if a failure has occurred
+    document.getElementById(`${step}-step`).classList.add('completed');
+    if (step !== 'issue') {
+        document.getElementById(`line-${step}-${steps[steps.indexOf(step) + 1]}`).classList.add('completed');
+    }
+}
+
+function markStepFailed(step) {
+    failureOccurred = true;  // Set failureOccurred to true to lock further progress
+    document.getElementById(`${step}-step`).classList.add('failed');
+    if (step !== 'issue') {
+        document.getElementById(`line-${step}-${steps[steps.indexOf(step) + 1]}`).classList.add('failed');
+    }
+}
+
+// Rest of your failure scenario remains unchanged
+function randomFailureScenario() {
+    const randomStep = steps[Math.floor(Math.random() * steps.length)];
+    markStepFailed(randomStep);
+
+    const failureMessages = [
+        'Request transferred to RDU.',
+        'Aadhar is not verified.',
+        'Signature doesn\'t match.',
+        'Failed to authenticate.'
+    ];
+    const randomMessage = failureMessages[Math.floor(Math.random() * failureMessages.length)];
+
+    setTimeout(() => {
+        alert(randomMessage);  // Show alert message
+        processLocked = true;  // Lock the process to prevent further progress
+        if (randomMessage === 'Aadhar is not verified.') {
+            showPopup(randomMessage);  // Show the Aadhar verification pop-up form
+        }
+    }, 1000);
+}
+
+// Simulate the process
+setTimeout(() => {
+    markStepCompleted('vra');
+    setTimeout(() => {
+        markStepCompleted('vro');
+        setTimeout(() => {
+            markStepCompleted('mro');
+            setTimeout(() => {
+                markStepCompleted('issue');
+                document.getElementById('download-btn').style.display = 'inline-block';
+            }, 1000);
+        }, 1000);
+    }, 1000);
+}, 1000);
+
+// Trigger a random failure after some time
+setTimeout(() => {
+    randomFailureScenario();
+}, 4000);  // Adjust this to trigger failure after some time
+
+
+    function downloadCertificate() {
+        if (processLocked) return; // Prevent downloading if process is locked
+        const imgElement = document.createElement('img');
+        imgElement.src = './images/b.jpg'; // Replace with the path to your certificate image
+        imgElement.alt = 'Certificate Image';
+        document.getElementById('certificate-img').appendChild(imgElement);
+        document.getElementById('certificate-img').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
